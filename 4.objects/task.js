@@ -11,14 +11,13 @@ Student.prototype.setSubject = function (subjectName) {
 }
 
 Student.prototype.addMarks = function(...marksToAdd) {
-   if (this.excluded) {
-     throw new Error("Нельзя поставить оценку отчисленному студенту");
-   } else {
-     this.marks.push(...marksToAdd);
-   }
+   if (this.marks) {
+      this.marks.push(...marksToAdd);
+    }
  }
 
 Student.prototype.getAverage = function () {
+   if (!this.marks) return 0;
    if (this.marks.length === 0) return 0;
    return this.marks.reduce((sum, mark) => sum + mark) / this.marks.length;
 }
