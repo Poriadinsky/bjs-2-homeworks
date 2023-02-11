@@ -1,23 +1,30 @@
 "use strict";
 
 function solveEquation(a, b, c) {
-  let arr = [];
-  let d = Math.pow(b, 2) - (4 * a * c);
+  let d = b ** 2 - 4 * a * c;
+  let roots = [];
   if (d < 0) {
-    //return arr;
-  } else if (d == 0){
-    arr[0] = (-b / (2 * a));
-  } else if (d > 0) {
-    arr[0] = (-b + Math.sqrt(d) ) / (2 * a); 
-    arr[1] = (-b - Math.sqrt(d) ) / (2 * a);  
+    return roots;
+  } else if (d === 0) {
+    roots.push(-b / (2 * a));
+    return roots;
+  } else {
+    roots.push((-b + Math.sqrt(d)) / (2 * a), (-b - Math.sqrt(d)) / (2 * a));
+    return roots;
   }
-  // код для задачи №1 писать здесь
-  return arr; // array
 }
 
-function calculateTotalMortgage() {
 
-  // код для задачи №2 писать здесь
-
-  return totalAmount;
+function calculateTotalMortgage(percent, contribution, amount, countMonths) {
+  if (isNaN(percent) || isNaN(contribution) || isNaN(amount) || isNaN(countMonths)) {
+    return false;
+  }
+  
+  let P = percent / 100 / 12;
+  let S = amount - contribution;
+  let n = countMonths;
+  let payment = S * (P + (P / (((1 + P) ** n) - 1)));
+  let totalAmount = payment * n;
+  
+  return Number(totalAmount.toFixed(2));
 }
